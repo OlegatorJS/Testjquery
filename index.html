@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8" />
+      <title>A date range picker for Bootstrap</title>
+
+        <!-- Include Required Prerequisites -->
+        <script type="text/javascript" src="http://cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+        <script type="text/javascript" src="js/moment.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+        
+        <!-- Include Date Range Picker -->
+        <script type="text/javascript" src="js/daterangepicker.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/daterangepicker.css" />
+
+        
+
+   </head>
+   <body>
+
+
+<div id="datepicker">
+    <form>
+        <select>
+            <option>Today</option>
+            <option>Yesterday</option>
+            <option>Last 7 days</option>
+            <option>Last 30 days</option>
+        </select>
+    <span></span>
+    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+</form>
+</div>
+
+<script type="text/javascript">
+    $(function() {
+
+        var start = moment().subtract(0, 'days');
+        var end = moment();
+
+        function cb(start, end) {
+            $('#datepicker span').html(start.format('DD.MM.YYYY') + ' - ' + end.format('DD.MM.YYYY'));
+        }
+
+        $('#datepicker').daterangepicker({
+            locale: {
+            format: 'M DD,YY'
+        },
+            "alwaysShowCalendars": true,
+            "showCustomRangeLabel": false,
+            "autoApply": true,
+            startDate: start,
+            endDate: end,
+            ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 days': [moment().subtract(29, 'days'), moment()],
+            'Last 60 days': [moment().subtract(59, 'days'), moment()],
+            'Last 90 days': [moment().subtract(89, 'days'), moment()]
+            },
+ 
+        },
+        
+ 
+         cb);
+
+        cb(start, end);
+        
+    });
+    </script>
+
+
+   </body>
+</html>
